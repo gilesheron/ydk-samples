@@ -106,8 +106,7 @@ def process_rib(rib):
                                                          mask=rt.prefix_length,
                                                          distance=rt.distance,
                                                          metric=rt.metric,
-                                                         next_hop=next_hop,
-                                                         vrf_name=vrf_name)
+                                                         next_hop=next_hop)
 
     # return formated string
     return show_route.strip()
