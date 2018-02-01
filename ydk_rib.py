@@ -59,7 +59,6 @@ def filter_rib(rib):
 
     # next-hop info to read
     ipv4_rib_edm_path.address.yfilter = YFilter.read
-    ipv4_rib_edm_path.next_hop_vrf_name.yfilter = YFilter.read
 
     route.route_path.ipv4_rib_edm_path.append(ipv4_rib_edm_path)
     ip_rib_route_table_name.routes.route.append(route)
@@ -86,7 +85,7 @@ def process_rib(rib):
     show_route_local_row = "{protocol} {prefix}/{mask} is directly connected\n"
     # format string for protocol route
     show_route_protocol_row = ("{protocol} {prefix}/{mask} [{distance}/{metric}] "
-                               "via {next_hop} (nexthop in vrf {vrf_name})\n")
+                               "via {next_hop}\n")
 
     protocol_name = {"bgp": "B", "local": "L", "isis": "i"}
 
@@ -102,7 +101,6 @@ def process_rib(rib):
                                                       mask=rt.prefix_length)
         else:
             next_hop = rt.route_path.ipv4_rib_edm_path[0].address
-            vrf_name = rt.route_path.ipv4_rib_edm_path[0].next_hop_vrf_name
             show_route += show_route_protocol_row.format(protocol=protocol,
                                                          prefix=rt.address,
                                                          mask=rt.prefix_length,
